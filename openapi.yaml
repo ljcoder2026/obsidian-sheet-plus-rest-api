@@ -4,9 +4,7 @@ info:
   version: 1.0.0
   description: API documentation for Obsidian Sheet Plus plugin
 servers:
-  - url: http://localhost:3000
-    description: MCP Server
-  - url: http://localhost:{port}
+  - url: http://127.0.0.1:{port}
     description: Local server (custom port)
     variables:
       port:

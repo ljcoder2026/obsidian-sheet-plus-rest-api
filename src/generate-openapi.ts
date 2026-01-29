@@ -4,7 +4,6 @@ import path from 'path';
 import yaml from 'js-yaml';
 
 // Swagger 配置
-const MCP_PORT = process.env.MCP_PORT || 3000;
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -15,11 +14,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${MCP_PORT}`,
-        description: 'MCP Server',
-      },
-      {
-        url: 'http://localhost:{port}',
+        url: 'http://127.0.0.1:{port}',
         description: 'Local server (custom port)',
         variables: {
           port: {

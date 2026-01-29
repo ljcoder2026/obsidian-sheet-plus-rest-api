@@ -18,7 +18,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:{port}',
+        url: 'http://127.0.0.1:{port}',
         description: 'Local server (custom port)',
         variables: {
           port: {
@@ -83,8 +83,8 @@ const swaggerUiOptions = {
   customIntro: `
     <div class="api-config-section">
       <h2>API Configuration</h2>
-      <p><strong>MCP Server Address:</strong> <code>http://localhost:${MCP_PORT}</code></p>
-      <p><strong>API Documentation Address:</strong> <code>http://localhost:${PORT}/api-docs</code></p>
+      <p><strong>MCP Server Address:</strong> <code>http://127.0.0.1:${MCP_PORT}</code></p>
+      <p><strong>API Documentation Address:</strong> <code>http://127.0.0.1:${PORT}/api-docs</code></p>
       
       <h3>API Key Setup</h3>
       <p>1. Enable API Key authentication in the MCP Server management page of the Obsidian Sheet Plus plugin</p>
@@ -113,5 +113,5 @@ app.get('/health', (req, res) => {
 
 // 启动服务器
 app.listen(PORT, () => {
-  console.log(`API Docs server running on http://localhost:${PORT}/api-docs`);
+  console.log(`API Docs server running on http://127.0.0.1:${PORT}/api-docs`);
 });
