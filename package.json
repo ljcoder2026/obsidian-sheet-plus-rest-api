@@ -1,0 +1,35 @@
+{
+  "name": "api-docs",
+  "version": "1.0.0",
+  "description": "API documentation for Smart Sheet plugin",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/app.js",
+    "dev": "npx tsc && node dist/app.js",
+    "build-static": "npx tsc && node dist/build-static.js",
+    "generate-openapi": "node dist/generate-openapi.js"
+  },
+  "keywords": [
+    "obsidian",
+    "smart-sheet",
+    "api",
+    "documentation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/js-yaml": "^4.0.9",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "js-yaml": "^4.1.1",
+    "typescript": "^5.9.3"
+  }
+}
