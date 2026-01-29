@@ -3,12 +3,12 @@
  * /get_workbook:
  *   get:
  *     summary: Get workbook
- *     description: 获取所有工作簿
+ *     description: Get all workbooks
  *     tags:
  *       - Workbook
  *     responses:
  *       200:
- *         description: 成功获取工作簿
+ *         description: Successfully retrieved workbook
  *         content:
  *           application/json:
  *             schema:
@@ -32,12 +32,12 @@
  * /get_sheet_list:
  *   get:
  *     summary: Get sheet list
- *     description: 获取当前工作簿中的所有工作表
+ *     description: Get all sheets in the current workbook
  *     tags:
  *       - Sheets
  *     responses:
  *       200:
- *         description: 成功获取工作表列表
+ *         description: Successfully retrieved sheet list
  *         content:
  *           application/json:
  *             schema:
@@ -65,7 +65,7 @@
  * /get_sheet_data:
  *   get:
  *     summary: Get sheet data
- *     description: 获取工作表的数据
+ *     description: Get sheet data
  *     tags:
  *       - Sheets
  *     parameters:
@@ -74,16 +74,16 @@
  *         required: false
  *         schema:
  *           type: string
- *         description: 工作表名称
+ *         description: Sheet name
  *       - in: query
  *         name: range
  *         required: false
  *         schema:
  *           type: string
- *         description: 数据范围，例如 A1:B10
+ *         description: Data range, e.g., A1:B10
  *     responses:
  *       200:
- *         description: 成功获取工作表数据
+ *         description: Successfully retrieved sheet data
  *         content:
  *           application/json:
  *             schema:
@@ -108,7 +108,7 @@
  * /create_sheet:
  *   post:
  *     summary: Create sheet
- *     description: 在工作簿中创建一个新的工作表
+ *     description: Create a new sheet in the workbook
  *     tags:
  *       - Sheets
  *     requestBody:
@@ -120,12 +120,12 @@
  *             properties:
  *               name:
  *                 type: string
- *                 description: 工作表名称
+ *                 description: Sheet name
  *             required:
  *               - name
  *     responses:
  *       200:
- *         description: 成功创建工作表
+ *         description: Successfully created sheet
  *         content:
  *           application/json:
  *             schema:
@@ -151,7 +151,7 @@
  * /set_sheet_data:
  *   post:
  *     summary: Set sheet data
- *     description: 更新工作表的数据
+ *     description: Update sheet data
  *     tags:
  *       - Sheets
  *     requestBody:
@@ -163,13 +163,13 @@
  *             properties:
  *               sheetName:
  *                 type: string
- *                 description: 工作表名称
+ *                 description: Sheet name
  *               range:
  *                 type: string
- *                 description: 数据范围，例如 A1:B10
+ *                 description: Data range, e.g., A1:B10
  *               values:
  *                 type: array
- *                 description: 要更新的数据，二维数组
+ *                 description: Data to update, 2D array
  *                 items:
  *                   type: array
  *                   items:
@@ -180,7 +180,7 @@
  *               - values
  *     responses:
  *       200:
- *         description: 成功更新工作表数据
+ *         description: Successfully updated sheet data
  *         content:
  *           application/json:
  *             schema:
@@ -199,7 +199,7 @@
  * /set_formula:
  *   post:
  *     summary: Set formula
- *     description: 在指定单元格设置/添加/插入公式
+ *     description: Set formula in specified cells
  *     tags:
  *       - Sheets
  *     requestBody:
@@ -211,20 +211,20 @@
  *             properties:
  *               sheetName:
  *                 type: string
- *                 description: 工作表名称
+ *                 description: Sheet name
  *               range:
  *                 type: string
- *                 description: 单元格范围，例如 A1 或 A1:B10
+ *                 description: Cell range, e.g., A1 or A1:B10
  *               formula:
  *                 type: string
- *                 description: 公式，例如 =SUM(B1:B10)
+ *                 description: Formula, e.g., =SUM(B1:B10)
  *             required:
  *               - sheetName
  *               - range
  *               - formula
  *     responses:
  *       200:
- *         description: 成功设置公式
+ *         description: Successfully set formula
  *         content:
  *           application/json:
  *             schema:
@@ -250,7 +250,7 @@
  * /set_range_style:
  *   post:
  *     summary: Set range style
- *     description: 设置指定范围的样式，包括字体、颜色、背景色、边框等
+ *     description: Set style for specified range, including font, color, background, borders, etc.
  *     tags:
  *       - Sheets
  *     requestBody:
@@ -262,20 +262,20 @@
  *             properties:
  *               sheetName:
  *                 type: string
- *                 description: 工作表名称
+ *                 description: Sheet name
  *               range:
  *                 type: string
- *                 description: 单元格范围，例如 A1:B10
+ *                 description: Cell range, e.g., A1:B10
  *               style:
  *                 type: object
- *                 description: 要设置的样式对象，包括字体、颜色、背景色、边框等
+ *                 description: Style object to set, including font, color, background, borders, etc.
  *                 properties:
  *                   backgroundColor:
  *                     type: string
- *                     description: 背景颜色，例如 #FFFF00
+ *                     description: Background color, e.g., #FFFF00
  *                   fontColor:
  *                     type: string
- *                     description: 字体颜色，例如 #0000FF
+ *                     description: Font color, e.g., #0000FF
  *                   fontSize:
  *                     type: number
  *                     description: A font size in point size. A null value resets the font size.
@@ -297,7 +297,7 @@
  *                   textDecoration:
  *                     type: string
  *                     enum: [none, underline, line-through]
- *                     description: 文本装饰
+ *                     description: Text decoration
  *                   horizontalAlignment:
  *                     type: string
  *                     enum: [left, center, right]
@@ -314,29 +314,29 @@
  *                     description: Set the cell wrap of the given range. Cells with wrap enabled (the default) resize to display their full content. Cells with wrap disabled display as much as possible in the cell without resizing or running to multiple lines.
  *                   border:
  *                     type: object
- *                     description: 边框样式
+ *                     description: Border style
  *                     properties:
  *                       type:
  *                         type: string
  *                         enum: [top, bottom, left, right, none, all, outside, inside, horizontal, vertical, tlbr, tlbc_tlmr, tlbr_tlbc_tlmr, bl_tr, mltr_bctr]
- *                         description: 边框类型，比如所有边框为 all
+ *                         description: Border type, e.g., all for all borders
  *                       style:
  *                         type: number
  *                         enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
- *                         description: 边框样式，例如 NONE 为 0, THIN 为 1, HAIR 为 2, DOTTED 为 3, DASHED 为 4, DASH_DOT 为 5, DASH_DOT_DOT 为 6, DOUBLE 为 7, MEDIUM 为 8, MEDIUM_DASHED 为 9, MEDIUM_DASH_DOT 为 10, MEDIUM_DASH_DOT_DOT 为 11, SLANT_DASH_DOT 为 12, THICK 为 13
+ *                         description: Border style, e.g., NONE is 0, THIN is 1, HAIR is 2, DOTTED is 3, DASHED is 4, DASH_DOT is 5, DASH_DOT_DOT is 6, DOUBLE is 7, MEDIUM is 8, MEDIUM_DASHED is 9, MEDIUM_DASH_DOT is 10, MEDIUM_DASH_DOT_DOT is 11, SLANT_DASH_DOT is 12, THICK is 13
  *                       color:
  *                         type: object
- *                         description: 边框颜色
+ *                         description: Border color
  *                         properties:
  *                           color:
  *                             type: string
- *                             description: 边框颜色
+ *                             description: Border color
  *             required:
  *               - range
  *               - style
  *     responses:
  *       200:
- *         description: 成功设置样式
+ *         description: Successfully set style
  *         content:
  *           application/json:
  *             schema:

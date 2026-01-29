@@ -82,23 +82,23 @@ const swaggerUiOptions = {
   customSiteTitle: 'Obsidian Sheet Plus API Documentation',
   customIntro: `
     <div class="api-config-section">
-      <h2>接口配置信息</h2>
-      <p><strong>MCP Server 地址:</strong> <code>http://localhost:${MCP_PORT}</code></p>
-      <p><strong>API 文档地址:</strong> <code>http://localhost:${PORT}/api-docs</code></p>
+      <h2>API Configuration</h2>
+      <p><strong>MCP Server Address:</strong> <code>http://localhost:${MCP_PORT}</code></p>
+      <p><strong>API Documentation Address:</strong> <code>http://localhost:${PORT}/api-docs</code></p>
       
-      <h3>API Key 设置</h3>
-      <p>1. 在 Obsidian Sheet Plus 插件的 MCP Server 管理页面中开启 API Key 验证</p>
-      <p>2. 系统会自动生成 API Key 或使用已缓存的 Key</p>
-      <p>3. 使用 Copy 按钮复制 API Key</p>
+      <h3>API Key Setup</h3>
+      <p>1. Enable API Key authentication in the MCP Server management page of the Obsidian Sheet Plus plugin</p>
+      <p>2. The system will automatically generate an API Key or use a cached Key</p>
+      <p>3. Use the Copy button to copy the API Key</p>
       
-      <h3>如何使用 API Key</h3>
-      <p>在请求头中添加以下认证信息:</p>
+      <h3>How to Use API Key</h3>
+      <p>Add the following authentication information to the request header:</p>
       <pre><code>X-API-KEY: YOUR_API_KEY</code></pre>
       
-      <h3>注意事项</h3>
-      <p>- 开启 API Key 验证后，所有请求都需要携带有效的 API Key</p>
-      <p>- 重置 API Key 后，旧的 Key 将失效</p>
-      <p>- 关闭 API Key 验证后，请求不需要携带 API Key</p>
+      <h3>Notes</h3>
+      <p>- After enabling API Key authentication, all requests need to carry a valid API Key</p>
+      <p>- After resetting the API Key, the old Key will become invalid</p>
+      <p>- After disabling API Key authentication, requests do not need to carry an API Key</p>
     </div>
   `,
 };
