@@ -120,11 +120,11 @@
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               sheetName:
  *                 type: string
  *                 description: 工作表名称
  *             required:
- *               - name
+ *               - sheetName
  *     responses:
  *       200:
  *         description: Successfully created sheet
