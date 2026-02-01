@@ -371,20 +371,20 @@ paths:
                         style:
                           type: number
                           enum:
-                            - NONE
-                            - THIN
-                            - HAIR
-                            - DOTTED
-                            - DASHED
-                            - DASH_DOT
-                            - DASH_DOT_DOT
-                            - DOUBLE
-                            - MEDIUM
-                            - MEDIUM_DASHED
-                            - MEDIUM_DASH_DOT
-                            - MEDIUM_DASH_DOT_DOT
-                            - SLANT_DASH_DOT
-                            - THICK
+                            - 0
+                            - 1
+                            - 2
+                            - 3
+                            - 4
+                            - 5
+                            - 6
+                            - 7
+                            - 8
+                            - 9
+                            - 10
+                            - 11
+                            - 12
+                            - 13
                           description: >-
                             Border style, e.g., NONE = 0, THIN = 1, HAIR = 2,
                             DOTTED = 3, DASHED = 4, DASH_DOT = 5, DASH_DOT_DOT =
