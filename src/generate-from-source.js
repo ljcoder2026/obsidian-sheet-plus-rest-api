@@ -2,22 +2,24 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-// Read the sheetTools.ts file directly
+// Read the source files
 const sheetToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/sheetTools.ts');
 const dataValidationToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/dataValidationTools.ts');
 const workbookToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/workbookTools.ts');
+const conditionalToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/conditional.ts');
 
-// Read the files
+// Read files
 const sheetToolsContent = fs.readFileSync(sheetToolsPath, 'utf8');
 const dataValidationToolsContent = fs.readFileSync(dataValidationToolsPath, 'utf8');
 const workbookToolsContent = fs.readFileSync(workbookToolsPath, 'utf8');
+const conditionalToolsContent = fs.readFileSync(conditionalToolsPath, 'utf8');
 
 // Parse the tools from the files
 function parseTools(content) {
   const tools = [];
   
   // Match tool definitions - only match uncommented lines
-  const toolRegex = /^export const (\w+Tool): IUniverTool = \{[\s\S]*?^\};\n/gm;
+  const toolRegex = /^export const (\w+Tool): IUniverTool = \{[\s\S]*?^\};(?:\n|$)/gm;
   let match;
   
   while ((match = toolRegex.exec(content)) !== null) {
@@ -68,9 +70,10 @@ function parseTools(content) {
 const sheetTools = parseTools(sheetToolsContent);
 const dataValidationTools = parseTools(dataValidationToolsContent);
 const workbookTools = parseTools(workbookToolsContent);
+const conditionalTools = parseTools(conditionalToolsContent);
 
 // Combine all tools
-const allTools = [...workbookTools, ...sheetTools, ...dataValidationTools];
+const allTools = [...workbookTools, ...sheetTools, ...dataValidationTools, ...conditionalTools];
 
 // Base OpenAPI spec structure
 const openapiSpec = {
@@ -121,6 +124,10 @@ const openapiSpec = {
       name: 'Data Validation',
       description: 'Data validation related operations',
     },
+    {
+      name: 'Conditional Formatting',
+      description: 'Conditional formatting related operations',
+    },
   ],
 };
 
@@ -138,6 +145,9 @@ const toolMapping = {
   clear_format: { method: 'post', path: '/clear_format', tag: 'Sheets' },
   clear_all: { method: 'post', path: '/clear_all', tag: 'Sheets' },
   clear_data_validation: { method: 'post', path: '/clear_data_validation', tag: 'Data Validation' },
+  add_conditional_formatting: { method: 'post', path: '/add_conditional_formatting', tag: 'Conditional Formatting' },
+  remove_conditional_formatting: { method: 'post', path: '/remove_conditional_formatting', tag: 'Conditional Formatting' },
+  clear_all_conditional_formatting: { method: 'post', path: '/clear_all_conditional_formatting', tag: 'Conditional Formatting' },
 };
 
 // Process each tool

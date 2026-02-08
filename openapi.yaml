@@ -472,6 +472,43 @@ paths:
                   description: Cell range, e.g., A1:B10
               required:
                 - range
+  /clear_all:
+    post:
+      summary: Clear All
+      description: Clear all contents and formats of specified sheet cell range
+      tags:
+        - Sheets
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                  error:
+                    type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sheetName:
+                  type: string
+                  description: Sheet name
+                range:
+                  type: string
+                  description: Cell range, e.g., A1:B10
+              required:
+                - range
   /set_data_validation:
     post:
       summary: Set Data Validation
@@ -598,6 +635,291 @@ paths:
                   description: Cell range, e.g., A1:B10
               required:
                 - range
+  /add_conditional_formatting:
+    post:
+      summary: Add Conditional Formatting
+      description: Add conditional formatting rule to a range
+      tags:
+        - Conditional Formatting
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                  error:
+                    type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sheetName:
+                  type: string
+                  description: Sheet name
+                range:
+                  type: string
+                  description: Cell range, e.g., A1:B10
+                ruleType:
+                  type: string
+                  enum:
+                    - number
+                    - text
+                    - date
+                    - cell
+                    - average
+                    - colorScale
+                    - dataBar
+                    - iconSet
+                  description: Type of conditional formatting rule
+                condition:
+                  type: object
+                  description: Condition settings based on rule type
+                  properties:
+                    operator:
+                      type: string
+                      enum:
+                        - greaterThan
+                        - lessThan
+                        - equal
+                        - greaterThanOrEqual
+                        - lessThanOrEqual
+                        - notEqual
+                        - between
+                        - notBetween
+                      description: Number comparison operator
+                    value1:
+                      type: number
+                      description: First value for comparison
+                    value2:
+                      type: number
+                      description: Second value for between/notBetween operators
+                    textOperator:
+                      type: string
+                      enum:
+                        - contains
+                        - notContains
+                        - beginsWith
+                        - endsWith
+                      description: Text comparison operator
+                    text:
+                      type: string
+                      description: Text to compare
+                    dateOperator:
+                      type: string
+                      enum:
+                        - today
+                        - yesterday
+                        - tomorrow
+                        - last7Days
+                        - thisMonth
+                        - lastMonth
+                        - nextMonth
+                        - thisYear
+                        - lastYear
+                        - nextYear
+                      description: Date comparison operator
+                    cellType:
+                      type: string
+                      enum:
+                        - empty
+                        - notEmpty
+                        - error
+                        - noError
+                      description: Cell type condition
+                    averageOperator:
+                      type: string
+                      enum:
+                        - above
+                        - below
+                        - equalOrAbove
+                        - equalOrBelow
+                        - aboveOrBelow
+                      description: Average comparison operator
+                    colorScale:
+                      type: array
+                      description: Color scale configuration
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type: number
+                            description: Color stop index
+                          color:
+                            type: string
+                            description: Color for this stop
+                          value:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                                enum:
+                                  - num
+                                  - percent
+                                  - percentile
+                                description: Value type
+                              value:
+                                type: number
+                                description: Value for this stop
+                    dataBar:
+                      type: object
+                      properties:
+                        positiveColor:
+                          type: string
+                          description: Color for positive values
+                        nativeColor:
+                          type: string
+                          description: Color for negative values
+                        isGradient:
+                          type: boolean
+                          description: Whether to use gradient
+                        isShowValue:
+                          type: boolean
+                          description: Whether to show value
+                        min:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - num
+                                - percent
+                                - percentile
+                                - formula
+                                - auto
+                              description: Minimum value type
+                            value:
+                              type: number
+                              description: Minimum value
+                        max:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - num
+                                - percent
+                                - percentile
+                                - formula
+                                - auto
+                              description: Maximum value type
+                            value:
+                              type: number
+                              description: Maximum value
+                    iconSet:
+                      type: object
+                      properties:
+                        iconSetType:
+                          type: string
+                          description: Icon set type
+                        reverseIconOrder:
+                          type: boolean
+                          description: Whether to reverse icon order
+                        showIconOnly:
+                          type: boolean
+                          description: Whether to show only icons
+                format:
+                  type: object
+                  description: Format settings for conditional formatting
+                  properties:
+                    backgroundColor:
+                      type: string
+                      description: 'Background color, e.g., #FF0000'
+                    fontColor:
+                      type: string
+                      description: 'Font color, e.g., #FFFFFF'
+                    bold:
+                      type: boolean
+                      description: Whether to bold text
+                    italic:
+                      type: boolean
+                      description: Whether to italicize text
+                    underline:
+                      type: boolean
+                      description: Whether to underline text
+              required:
+                - range
+                - ruleType
+                - condition
+  /remove_conditional_formatting:
+    post:
+      summary: Remove Conditional Formatting
+      description: Remove conditional formatting rules from a range
+      tags:
+        - Conditional Formatting
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                  error:
+                    type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sheetName:
+                  type: string
+                  description: Sheet name
+                range:
+                  type: string
+                  description: Cell range, e.g., A1:B10
+              required:
+                - range
+  /clear_all_conditional_formatting:
+    post:
+      summary: Clear All Conditional Formatting
+      description: Clear all conditional formatting rules from the entire sheet
+      tags:
+        - Conditional Formatting
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                  error:
+                    type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sheetName:
+                  type: string
+                  description: Sheet name
 tags:
   - name: Workbook
     description: Workbook related operations
@@ -605,3 +927,5 @@ tags:
     description: Sheet related operations
   - name: Data Validation
     description: Data validation related operations
+  - name: Conditional Formatting
+    description: Conditional formatting related operations

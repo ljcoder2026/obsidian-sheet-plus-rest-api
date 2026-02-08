@@ -348,6 +348,47 @@
 
 /**
  * @swagger
+ * /clear_all:
+ *   post:
+ *     summary: Clear All
+ *     description: Clear all contents and formats of specified sheet cell range
+ *     tags:
+ *       - Sheets
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               range:
+ *                 type: string
+ *                 description: Cell range, e.g., A1:B10
+ *             required:
+ *               - range
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
  * /set_data_validation:
  *   post:
  *     summary: Set Data Validation
@@ -435,6 +476,136 @@
  *                 description: Cell range, e.g., A1:B10
  *             required:
  *               - range
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /add_conditional_formatting:
+ *   post:
+ *     summary: Add Conditional Formatting
+ *     description: Add conditional formatting rule to a range
+ *     tags:
+ *       - Conditional Formatting
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               range:
+ *                 type: string
+ *                 description: Cell range, e.g., A1:B10
+ *               ruleType:
+ *                 type: string
+ *                 enum: ["number","text","date","cell","average","colorScale","dataBar","iconSet"]
+ *                 description: Type of conditional formatting rule
+ *               condition:
+ *                 type: object
+ *                 description: Condition settings based on rule type
+ *               format:
+ *                 type: object
+ *                 description: Format settings for conditional formatting
+ *             required:
+ *               - range
+ *               - ruleType
+ *               - condition
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /remove_conditional_formatting:
+ *   post:
+ *     summary: Remove Conditional Formatting
+ *     description: Remove conditional formatting rules from a range
+ *     tags:
+ *       - Conditional Formatting
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               range:
+ *                 type: string
+ *                 description: Cell range, e.g., A1:B10
+ *             required:
+ *               - range
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /clear_all_conditional_formatting:
+ *   post:
+ *     summary: Clear All Conditional Formatting
+ *     description: Clear all conditional formatting rules from the entire sheet
+ *     tags:
+ *       - Conditional Formatting
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
  *     responses:
  *       200:
  *         description: Successful operation
