@@ -128,6 +128,10 @@ const openapiSpec = {
       name: 'Conditional Formatting',
       description: 'Conditional formatting related operations',
     },
+    {
+      name: 'Row and Column Operations',
+      description: 'Row and column related operations',
+    },
   ],
 };
 
@@ -148,6 +152,16 @@ const toolMapping = {
   add_conditional_formatting: { method: 'post', path: '/add_conditional_formatting', tag: 'Conditional Formatting' },
   remove_conditional_formatting: { method: 'post', path: '/remove_conditional_formatting', tag: 'Conditional Formatting' },
   clear_all_conditional_formatting: { method: 'post', path: '/clear_all_conditional_formatting', tag: 'Conditional Formatting' },
+  insert_rows: { method: 'post', path: '/insert_rows', tag: 'Row and Column Operations' },
+  delete_rows: { method: 'post', path: '/delete_rows', tag: 'Row and Column Operations' },
+  insert_columns: { method: 'post', path: '/insert_columns', tag: 'Row and Column Operations' },
+  delete_columns: { method: 'post', path: '/delete_columns', tag: 'Row and Column Operations' },
+  auto_resize_rows: { method: 'post', path: '/auto_resize_rows', tag: 'Row and Column Operations' },
+  auto_resize_columns: { method: 'post', path: '/auto_resize_columns', tag: 'Row and Column Operations' },
+  get_max_rows: { method: 'get', path: '/get_max_rows', tag: 'Row and Column Operations' },
+  get_max_columns: { method: 'get', path: '/get_max_columns', tag: 'Row and Column Operations' },
+  merge_cells: { method: 'post', path: '/merge_cells', tag: 'Row and Column Operations' },
+  unmerge_cells: { method: 'post', path: '/unmerge_cells', tag: 'Row and Column Operations' },
 };
 
 // Process each tool

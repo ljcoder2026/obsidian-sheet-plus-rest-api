@@ -54,6 +54,72 @@
 
 /**
  * @swagger
+ * /get_max_rows:
+ *   get:
+ *     summary: Get Max Rows
+ *     description: Get the maximum number of rows in a sheet
+ *     tags:
+ *       - Row and Column Operations
+ *     parameters:
+ *       - in: query
+ *         name: sheetName
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Sheet name
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /get_max_columns:
+ *   get:
+ *     summary: Get Max Columns
+ *     description: Get the maximum number of columns in a sheet
+ *     tags:
+ *       - Row and Column Operations
+ *     parameters:
+ *       - in: query
+ *         name: sheetName
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Sheet name
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
  * /get_sheet_data:
  *   get:
  *     summary: Get Sheet Data
@@ -367,6 +433,358 @@
  *               range:
  *                 type: string
  *                 description: Cell range, e.g., A1:B10
+ *             required:
+ *               - range
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /insert_rows:
+ *   post:
+ *     summary: Insert Rows
+ *     description: Insert new rows at a specified position
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               rowIndex:
+ *                 type: number
+ *                 description: Row index where to insert new rows (0-based)
+ *               numberOfRows:
+ *                 type: number
+ *                 description: Number of rows to insert
+ *             required:
+ *               - rowIndex
+ *               - numberOfRows
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /delete_rows:
+ *   post:
+ *     summary: Delete Rows
+ *     description: Delete rows at a specified position
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               rowIndex:
+ *                 type: number
+ *                 description: Row index where to start deleting (0-based)
+ *               numberOfRows:
+ *                 type: number
+ *                 description: Number of rows to delete
+ *             required:
+ *               - rowIndex
+ *               - numberOfRows
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /insert_columns:
+ *   post:
+ *     summary: Insert Columns
+ *     description: Insert new columns at a specified position
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               columnIndex:
+ *                 type: number
+ *                 description: Column index where to insert new columns (0-based)
+ *               numberOfColumns:
+ *                 type: number
+ *                 description: Number of columns to insert
+ *             required:
+ *               - columnIndex
+ *               - numberOfColumns
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /delete_columns:
+ *   post:
+ *     summary: Delete Columns
+ *     description: Delete columns at a specified position
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               columnIndex:
+ *                 type: number
+ *                 description: Column index where to start deleting (0-based)
+ *               numberOfColumns:
+ *                 type: number
+ *                 description: Number of columns to delete
+ *             required:
+ *               - columnIndex
+ *               - numberOfColumns
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /auto_resize_rows:
+ *   post:
+ *     summary: Auto Resize Rows
+ *     description: Auto resize multiple rows to fit their content
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               startRow:
+ *                 type: number
+ *                 description: Starting row index (0-based)
+ *               numberOfRows:
+ *                 type: number
+ *                 description: Number of rows to resize
+ *             required:
+ *               - startRow
+ *               - numberOfRows
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /auto_resize_columns:
+ *   post:
+ *     summary: Auto Resize Columns
+ *     description: Auto resize multiple columns to fit their content
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               startColumn:
+ *                 type: number
+ *                 description: Starting column index (0-based)
+ *               numberOfColumns:
+ *                 type: number
+ *                 description: Number of columns to resize
+ *             required:
+ *               - startColumn
+ *               - numberOfColumns
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /merge_cells:
+ *   post:
+ *     summary: Merge Cells
+ *     description: Merge cells in a specified range
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               range:
+ *                 type: string
+ *                 description: Cell range to merge, e.g., A1:B2
+ *             required:
+ *               - range
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /unmerge_cells:
+ *   post:
+ *     summary: Unmerge Cells
+ *     description: Unmerge (break apart) merged cells in a specified range
+ *     tags:
+ *       - Row and Column Operations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sheetName:
+ *                 type: string
+ *                 description: Sheet name
+ *               range:
+ *                 type: string
+ *                 description: Cell range to unmerge, e.g., A1:B2
  *             required:
  *               - range
  *     responses:
