@@ -2,24 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-// Read the source files
-const sheetToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/sheetTools.ts');
-const dataValidationToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/dataValidationTools.ts');
-const workbookToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/workbookTools.ts');
-const conditionalToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/ai/tools/univerTools/conditional.ts');
+// Read the sheetTools.ts file directly
+const sheetToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/mcp/tools/univerTools/sheetTools.ts');
+const dataValidationToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/mcp/tools/univerTools/dataValidationTools.ts');
+const workbookToolsPath = path.join(__dirname, '../../../packages/smart-sheet/src/mcp/tools/univerTools/workbookTools.ts');
 
-// Read files
+// Read the files
 const sheetToolsContent = fs.readFileSync(sheetToolsPath, 'utf8');
 const dataValidationToolsContent = fs.readFileSync(dataValidationToolsPath, 'utf8');
 const workbookToolsContent = fs.readFileSync(workbookToolsPath, 'utf8');
-const conditionalToolsContent = fs.readFileSync(conditionalToolsPath, 'utf8');
 
 // Parse the tools from the files
 function parseTools(content) {
   const tools = [];
   
   // Match tool definitions - only match uncommented lines
-  const toolRegex = /^export const (\w+Tool): IUniverTool = \{[\s\S]*?^\};(?:\n|$)/gm;
+  const toolRegex = /^export const (\w+Tool): IUniverTool = \{[\s\S]*?^\};\n/gm;
   let match;
   
   while ((match = toolRegex.exec(content)) !== null) {
@@ -70,10 +68,9 @@ function parseTools(content) {
 const sheetTools = parseTools(sheetToolsContent);
 const dataValidationTools = parseTools(dataValidationToolsContent);
 const workbookTools = parseTools(workbookToolsContent);
-const conditionalTools = parseTools(conditionalToolsContent);
 
 // Combine all tools
-const allTools = [...workbookTools, ...sheetTools, ...dataValidationTools, ...conditionalTools];
+const allTools = [...workbookTools, ...sheetTools, ...dataValidationTools];
 
 // Base OpenAPI spec structure
 const openapiSpec = {
@@ -124,14 +121,6 @@ const openapiSpec = {
       name: 'Data Validation',
       description: 'Data validation related operations',
     },
-    {
-      name: 'Conditional Formatting',
-      description: 'Conditional formatting related operations',
-    },
-    {
-      name: 'Row and Column Operations',
-      description: 'Row and column related operations',
-    },
   ],
 };
 
@@ -140,6 +129,8 @@ const toolMapping = {
   get_workbook_data: { method: 'get', path: '/get_workbook_data', tag: 'Workbook' },
   get_sheet_list: { method: 'get', path: '/get_sheet_list', tag: 'Sheets' },
   get_sheet_data: { method: 'get', path: '/get_sheet_data', tag: 'Sheets' },
+  get_max_rows: { method: 'get', path: '/get_max_rows', tag: 'Sheets' },
+  get_max_columns: { method: 'get', path: '/get_max_columns', tag: 'Sheets' },
   create_sheet: { method: 'post', path: '/create_sheet', tag: 'Sheets' },
   set_sheet_data: { method: 'post', path: '/set_sheet_data', tag: 'Sheets' },
   set_formula: { method: 'post', path: '/set_formula', tag: 'Sheets' },
@@ -149,19 +140,21 @@ const toolMapping = {
   clear_format: { method: 'post', path: '/clear_format', tag: 'Sheets' },
   clear_all: { method: 'post', path: '/clear_all', tag: 'Sheets' },
   clear_data_validation: { method: 'post', path: '/clear_data_validation', tag: 'Data Validation' },
-  add_conditional_formatting: { method: 'post', path: '/add_conditional_formatting', tag: 'Conditional Formatting' },
-  remove_conditional_formatting: { method: 'post', path: '/remove_conditional_formatting', tag: 'Conditional Formatting' },
-  clear_all_conditional_formatting: { method: 'post', path: '/clear_all_conditional_formatting', tag: 'Conditional Formatting' },
-  insert_rows: { method: 'post', path: '/insert_rows', tag: 'Row and Column Operations' },
-  delete_rows: { method: 'post', path: '/delete_rows', tag: 'Row and Column Operations' },
-  insert_columns: { method: 'post', path: '/insert_columns', tag: 'Row and Column Operations' },
-  delete_columns: { method: 'post', path: '/delete_columns', tag: 'Row and Column Operations' },
-  auto_resize_rows: { method: 'post', path: '/auto_resize_rows', tag: 'Row and Column Operations' },
-  auto_resize_columns: { method: 'post', path: '/auto_resize_columns', tag: 'Row and Column Operations' },
-  get_max_rows: { method: 'get', path: '/get_max_rows', tag: 'Row and Column Operations' },
-  get_max_columns: { method: 'get', path: '/get_max_columns', tag: 'Row and Column Operations' },
-  merge_cells: { method: 'post', path: '/merge_cells', tag: 'Row and Column Operations' },
-  unmerge_cells: { method: 'post', path: '/unmerge_cells', tag: 'Row and Column Operations' },
+  insert_rows: { method: 'post', path: '/insert_rows', tag: 'Sheets' },
+  delete_rows: { method: 'post', path: '/delete_rows', tag: 'Sheets' },
+  insert_columns: { method: 'post', path: '/insert_columns', tag: 'Sheets' },
+  delete_columns: { method: 'post', path: '/delete_columns', tag: 'Sheets' },
+  auto_resize_rows: { method: 'post', path: '/auto_resize_rows', tag: 'Sheets' },
+  auto_resize_columns: { method: 'post', path: '/auto_resize_columns', tag: 'Sheets' },
+  merge_cells: { method: 'post', path: '/merge_cells', tag: 'Sheets' },
+  unmerge_cells: { method: 'post', path: '/unmerge_cells', tag: 'Sheets' },
+  add_conditional_formatting: { method: 'post', path: '/add_conditional_formatting', tag: 'Sheets' },
+  remove_conditional_formatting: { method: 'post', path: '/remove_conditional_formatting', tag: 'Sheets' },
+  clear_all_conditional_formatting: { method: 'post', path: '/clear_all_conditional_formatting', tag: 'Sheets' },
+  add_filter: { method: 'post', path: '/add_filter', tag: 'Sheets' },
+  remove_filter: { method: 'post', path: '/remove_filter', tag: 'Sheets' },
+  set_filter_criteria: { method: 'post', path: '/set_filter_criteria', tag: 'Sheets' },
+  get_filter: { method: 'get', path: '/get_filter', tag: 'Sheets' },
 };
 
 // Process each tool

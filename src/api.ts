@@ -59,7 +59,7 @@
  *     summary: Get Max Rows
  *     description: Get the maximum number of rows in a sheet
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     parameters:
  *       - in: query
  *         name: sheetName
@@ -92,7 +92,7 @@
  *     summary: Get Max Columns
  *     description: Get the maximum number of columns in a sheet
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     parameters:
  *       - in: query
  *         name: sheetName
@@ -460,7 +460,7 @@
  *     summary: Insert Rows
  *     description: Insert new rows at a specified position
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -505,7 +505,7 @@
  *     summary: Delete Rows
  *     description: Delete rows at a specified position
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -550,7 +550,7 @@
  *     summary: Insert Columns
  *     description: Insert new columns at a specified position
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -595,7 +595,7 @@
  *     summary: Delete Columns
  *     description: Delete columns at a specified position
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -640,7 +640,7 @@
  *     summary: Auto Resize Rows
  *     description: Auto resize multiple rows to fit their content
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -685,7 +685,7 @@
  *     summary: Auto Resize Columns
  *     description: Auto resize multiple columns to fit their content
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -730,7 +730,7 @@
  *     summary: Merge Cells
  *     description: Merge cells in a specified range
  *     tags:
- *       - Row and Column Operations
+ *       - Sheets
  *     requestBody:
  *       required: true
  *       content:
@@ -744,47 +744,6 @@
  *               range:
  *                 type: string
  *                 description: Cell range to merge, e.g., A1:B2
- *             required:
- *               - range
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   type: object
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
- */
-
-/**
- * @swagger
- * /unmerge_cells:
- *   post:
- *     summary: Unmerge Cells
- *     description: Unmerge (break apart) merged cells in a specified range
- *     tags:
- *       - Row and Column Operations
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sheetName:
- *                 type: string
- *                 description: Sheet name
- *               range:
- *                 type: string
- *                 description: Cell range to unmerge, e.g., A1:B2
  *             required:
  *               - range
  *     responses:
@@ -894,136 +853,6 @@
  *                 description: Cell range, e.g., A1:B10
  *             required:
  *               - range
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   type: object
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
- */
-
-/**
- * @swagger
- * /add_conditional_formatting:
- *   post:
- *     summary: Add Conditional Formatting
- *     description: Add conditional formatting rule to a range
- *     tags:
- *       - Conditional Formatting
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sheetName:
- *                 type: string
- *                 description: Sheet name
- *               range:
- *                 type: string
- *                 description: Cell range, e.g., A1:B10
- *               ruleType:
- *                 type: string
- *                 enum: ["number","text","date","cell","average","colorScale","dataBar","iconSet"]
- *                 description: Type of conditional formatting rule
- *               condition:
- *                 type: object
- *                 description: Condition settings based on rule type
- *               format:
- *                 type: object
- *                 description: Format settings for conditional formatting
- *             required:
- *               - range
- *               - ruleType
- *               - condition
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   type: object
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
- */
-
-/**
- * @swagger
- * /remove_conditional_formatting:
- *   post:
- *     summary: Remove Conditional Formatting
- *     description: Remove conditional formatting rules from a range
- *     tags:
- *       - Conditional Formatting
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sheetName:
- *                 type: string
- *                 description: Sheet name
- *               range:
- *                 type: string
- *                 description: Cell range, e.g., A1:B10
- *             required:
- *               - range
- *     responses:
- *       200:
- *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 data:
- *                   type: object
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
- */
-
-/**
- * @swagger
- * /clear_all_conditional_formatting:
- *   post:
- *     summary: Clear All Conditional Formatting
- *     description: Clear all conditional formatting rules from the entire sheet
- *     tags:
- *       - Conditional Formatting
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sheetName:
- *                 type: string
- *                 description: Sheet name
  *     responses:
  *       200:
  *         description: Successful operation

@@ -71,7 +71,7 @@ paths:
       summary: Get Max Rows
       description: Get the maximum number of rows in a sheet
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -101,7 +101,7 @@ paths:
       summary: Get Max Columns
       description: Get the maximum number of columns in a sheet
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -429,26 +429,43 @@ paths:
                             - mltr_bctr
                           description: Border type, e.g., all for all borders
                         style:
-                          type: number
-                          enum:
-                            - 0
-                            - 1
-                            - 2
-                            - 3
-                            - 4
-                            - 5
-                            - 6
-                            - 7
-                            - 8
-                            - 9
-                            - 10
-                            - 11
-                            - 12
-                            - 13
+                          oneOf:
+                            - type: number
+                              enum:
+                                - 0
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 5
+                                - 6
+                                - 7
+                                - 8
+                                - 9
+                                - 10
+                                - 11
+                                - 12
+                                - 13
+                            - type: string
+                              enum:
+                                - NONE
+                                - THIN
+                                - HAIR
+                                - DOTTED
+                                - DASHED
+                                - DASH_DOT
+                                - DASH_DOT_DOT
+                                - DOUBLE
+                                - MEDIUM
+                                - MEDIUM_DASHED
+                                - MEDIUM_DASH_DOT
+                                - MEDIUM_DASH_DOT_DOT
+                                - SLANT_DASH_DOT
+                                - THICK
                           description: >-
-                            Border style, e.g., NONE = 0, THIN = 1, HAIR = 2,
-                            DOTTED = 3, DASHED = 4, DASH_DOT = 5, DASH_DOT_DOT =
-                            6, DOUBLE = 7, MEDIUM = 8, MEDIUM_DASHED = 9,
+                            Border style: NONE = 0, THIN = 1, HAIR = 2, DOTTED =
+                            3, DASHED = 4, DASH_DOT = 5, DASH_DOT_DOT = 6,
+                            DOUBLE = 7, MEDIUM = 8, MEDIUM_DASHED = 9,
                             MEDIUM_DASH_DOT = 10, MEDIUM_DASH_DOT_DOT = 11,
                             SLANT_DASH_DOT = 12, THICK = 13
                         color:
@@ -574,7 +591,7 @@ paths:
       summary: Insert Rows
       description: Insert new rows at a specified position
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -615,7 +632,7 @@ paths:
       summary: Delete Rows
       description: Delete rows at a specified position
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -656,7 +673,7 @@ paths:
       summary: Insert Columns
       description: Insert new columns at a specified position
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -697,7 +714,7 @@ paths:
       summary: Delete Columns
       description: Delete columns at a specified position
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -738,7 +755,7 @@ paths:
       summary: Auto Resize Rows
       description: Auto resize multiple rows to fit their content
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -779,7 +796,7 @@ paths:
       summary: Auto Resize Columns
       description: Auto resize multiple columns to fit their content
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -820,7 +837,7 @@ paths:
       summary: Merge Cells
       description: Merge cells in a specified range
       tags:
-        - Row and Column Operations
+        - Sheets
       responses:
         '200':
           description: Successful operation
@@ -850,43 +867,6 @@ paths:
                 range:
                   type: string
                   description: Cell range to merge, e.g., A1:B2
-              required:
-                - range
-  /unmerge_cells:
-    post:
-      summary: Unmerge Cells
-      description: Unmerge (break apart) merged cells in a specified range
-      tags:
-        - Row and Column Operations
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  data:
-                    type: object
-                  message:
-                    type: string
-                  error:
-                    type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                sheetName:
-                  type: string
-                  description: Sheet name
-                range:
-                  type: string
-                  description: Cell range to unmerge, e.g., A1:B2
               required:
                 - range
   /set_data_validation:
@@ -1015,291 +995,6 @@ paths:
                   description: Cell range, e.g., A1:B10
               required:
                 - range
-  /add_conditional_formatting:
-    post:
-      summary: Add Conditional Formatting
-      description: Add conditional formatting rule to a range
-      tags:
-        - Conditional Formatting
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  data:
-                    type: object
-                  message:
-                    type: string
-                  error:
-                    type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                sheetName:
-                  type: string
-                  description: Sheet name
-                range:
-                  type: string
-                  description: Cell range, e.g., A1:B10
-                ruleType:
-                  type: string
-                  enum:
-                    - number
-                    - text
-                    - date
-                    - cell
-                    - average
-                    - colorScale
-                    - dataBar
-                    - iconSet
-                  description: Type of conditional formatting rule
-                condition:
-                  type: object
-                  description: Condition settings based on rule type
-                  properties:
-                    operator:
-                      type: string
-                      enum:
-                        - greaterThan
-                        - lessThan
-                        - equal
-                        - greaterThanOrEqual
-                        - lessThanOrEqual
-                        - notEqual
-                        - between
-                        - notBetween
-                      description: Number comparison operator
-                    value1:
-                      type: number
-                      description: First value for comparison
-                    value2:
-                      type: number
-                      description: Second value for between/notBetween operators
-                    textOperator:
-                      type: string
-                      enum:
-                        - contains
-                        - notContains
-                        - beginsWith
-                        - endsWith
-                      description: Text comparison operator
-                    text:
-                      type: string
-                      description: Text to compare
-                    dateOperator:
-                      type: string
-                      enum:
-                        - today
-                        - yesterday
-                        - tomorrow
-                        - last7Days
-                        - thisMonth
-                        - lastMonth
-                        - nextMonth
-                        - thisYear
-                        - lastYear
-                        - nextYear
-                      description: Date comparison operator
-                    cellType:
-                      type: string
-                      enum:
-                        - empty
-                        - notEmpty
-                        - error
-                        - noError
-                      description: Cell type condition
-                    averageOperator:
-                      type: string
-                      enum:
-                        - above
-                        - below
-                        - equalOrAbove
-                        - equalOrBelow
-                        - aboveOrBelow
-                      description: Average comparison operator
-                    colorScale:
-                      type: array
-                      description: Color scale configuration
-                      items:
-                        type: object
-                        properties:
-                          index:
-                            type: number
-                            description: Color stop index
-                          color:
-                            type: string
-                            description: Color for this stop
-                          value:
-                            type: object
-                            properties:
-                              type:
-                                type: string
-                                enum:
-                                  - num
-                                  - percent
-                                  - percentile
-                                description: Value type
-                              value:
-                                type: number
-                                description: Value for this stop
-                    dataBar:
-                      type: object
-                      properties:
-                        positiveColor:
-                          type: string
-                          description: Color for positive values
-                        nativeColor:
-                          type: string
-                          description: Color for negative values
-                        isGradient:
-                          type: boolean
-                          description: Whether to use gradient
-                        isShowValue:
-                          type: boolean
-                          description: Whether to show value
-                        min:
-                          type: object
-                          properties:
-                            type:
-                              type: string
-                              enum:
-                                - num
-                                - percent
-                                - percentile
-                                - formula
-                                - auto
-                              description: Minimum value type
-                            value:
-                              type: number
-                              description: Minimum value
-                        max:
-                          type: object
-                          properties:
-                            type:
-                              type: string
-                              enum:
-                                - num
-                                - percent
-                                - percentile
-                                - formula
-                                - auto
-                              description: Maximum value type
-                            value:
-                              type: number
-                              description: Maximum value
-                    iconSet:
-                      type: object
-                      properties:
-                        iconSetType:
-                          type: string
-                          description: Icon set type
-                        reverseIconOrder:
-                          type: boolean
-                          description: Whether to reverse icon order
-                        showIconOnly:
-                          type: boolean
-                          description: Whether to show only icons
-                format:
-                  type: object
-                  description: Format settings for conditional formatting
-                  properties:
-                    backgroundColor:
-                      type: string
-                      description: 'Background color, e.g., #FF0000'
-                    fontColor:
-                      type: string
-                      description: 'Font color, e.g., #FFFFFF'
-                    bold:
-                      type: boolean
-                      description: Whether to bold text
-                    italic:
-                      type: boolean
-                      description: Whether to italicize text
-                    underline:
-                      type: boolean
-                      description: Whether to underline text
-              required:
-                - range
-                - ruleType
-                - condition
-  /remove_conditional_formatting:
-    post:
-      summary: Remove Conditional Formatting
-      description: Remove conditional formatting rules from a range
-      tags:
-        - Conditional Formatting
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  data:
-                    type: object
-                  message:
-                    type: string
-                  error:
-                    type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                sheetName:
-                  type: string
-                  description: Sheet name
-                range:
-                  type: string
-                  description: Cell range, e.g., A1:B10
-              required:
-                - range
-  /clear_all_conditional_formatting:
-    post:
-      summary: Clear All Conditional Formatting
-      description: Clear all conditional formatting rules from the entire sheet
-      tags:
-        - Conditional Formatting
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  data:
-                    type: object
-                  message:
-                    type: string
-                  error:
-                    type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                sheetName:
-                  type: string
-                  description: Sheet name
 tags:
   - name: Workbook
     description: Workbook related operations
@@ -1307,7 +1002,3 @@ tags:
     description: Sheet related operations
   - name: Data Validation
     description: Data validation related operations
-  - name: Conditional Formatting
-    description: Conditional formatting related operations
-  - name: Row and Column Operations
-    description: Row and column related operations
