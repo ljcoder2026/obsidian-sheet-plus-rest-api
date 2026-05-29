@@ -40,13 +40,11 @@ function parseTools(content) {
     
     if (parametersMatch) {
       try {
-        // Clean up the parameters string
         let paramsStr = parametersMatch[1];
-        paramsStr = paramsStr.replace(/\/\/.*$/gm, ''); // Remove comments
-        paramsStr = paramsStr.replace(/\s+/g, ' ').trim(); // Clean whitespace
+        paramsStr = paramsStr.replace(/\/\/.*$/gm, '');
+        paramsStr = paramsStr.replace(/\s+/g, ' ').trim();
         
-        // Parse parameters
-        parameters = eval(`(${paramsStr})`);
+        parameters = new Function(`return ${paramsStr}`)();
       } catch (e) {
         console.warn(`Error parsing parameters for tool: ${name}`, e);
       }
